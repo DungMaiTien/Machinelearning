@@ -102,7 +102,8 @@ X=X.astype('int32')
 
 dt_Train, dt_Test = train_test_split(X,test_size=0.3, shuffle=False)
 x_test_dt_test = dt_Test[:, :5]
-y_test_dt_test = dt_Test[:,5]
+##"Tim nap cac yeu to"
+y_test_dt_test = dt_Test[:,5] 
 #print(rate_svc)
 k=5
 kf = KFold(n_splits=k,random_state=None)
@@ -133,6 +134,7 @@ for train_index,test_index in kf.split(dt_Train):
     i += 1
 y_predict = model_max.predict(x_test_dt_test)
 rate_svc_kfold = round(accuracy_score(y_predict, y_test_dt_test),2)
+## accuracy = (positive+Negavtive)/tong so mau thu (kha quan+ko kha quan)/tong
 pre_svc_kfold = np.round(precision_score(y_test_dt_test, y_predict, average='micro', zero_division=1),3)
 recall_svc_kfold = np.round(recall_score(y_test_dt_test, y_predict, average='micro', zero_division=1),3)
 f1_kfold = np.round(f1_score(y_test_dt_test, y_predict, average='macro', zero_division=1),3)
@@ -188,8 +190,11 @@ def dudoansvm():
     else:
             
             X_dudoan =np.array([GioiTinh,NhomHoc,TrinhDoHocVan,CheDoAnUong,LuyenThi]).reshape(1, -1)
+##            y = 1 if <w.x>+b >=0
+##            y = -1 if <w.x>+b <0
             X_encode = data_encoder_KQ(X_dudoan)
             y_kqua = model_max.predict(X_encode)
+            
             if(y_kqua==1):
                 lbl3.configure(text= "[Yes]")
                 lb_svc.configure(text=""+'\n' 
